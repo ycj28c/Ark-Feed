@@ -26,3 +26,5 @@ arkw_old_result.json
 run.bat
 /target/
 tmpFile*
+.idea
+*.iml
