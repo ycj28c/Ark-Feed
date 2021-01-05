@@ -22,6 +22,7 @@ jobs:
         java-version: 1.8
         access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        webhookUrl: ${{ secrets.SLACK_WEBHOOK_URL }}
         application_name: pet-clinic
         environment_name: PetClinic-env
         region: us-east-1
