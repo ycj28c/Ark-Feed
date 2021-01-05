@@ -17,14 +17,15 @@ public class Analyzer {
     private static String getCompaniesStr(Set<CompanyData> companies){
         StringBuilder sb = new StringBuilder();
         for(CompanyData cmp : companies){
-            sb.append("•").append(cmp.getCompany()).append(", market value:").append(cmp.getMarketValue()).append("\n");
+            String marketValue = cmp.getMarketValue() >=0 ? "+" + cmp.getMarketValue() : "" + cmp.getMarketValue();
+            sb.append("- ").append(cmp.getCompany()).append(", market value:").append(marketValue).append("\n");
         }
         return sb.toString();
     }
     private static String getCompaniesStr(Map<CompanyData, String> companies){
         StringBuilder sb = new StringBuilder();
         for(Map.Entry<CompanyData, String> cmp : companies.entrySet()){
-            sb.append("•").append(cmp.getKey().getCompany()).append(", shares changing:").append(cmp.getValue()).append("\n");
+            sb.append("- ").append(cmp.getKey().getCompany()).append(", shares changing:").append(cmp.getValue()).append("\n");
         }
         return sb.toString();
     }
@@ -66,8 +67,10 @@ public class Analyzer {
                 CompanyData newCmp = newMap.get(oldCmp.getCusip());
                 double changing = oldCmp.getShares() - newCmp.getShares();
                 //String changingStr = String.format("%.2f", Math.abs(changing) / oldCmp.getShares());
-                String changingStr = round(Math.abs(changing) / oldCmp.getShares() * 100, 2) +"";
+                String flag = changing >=0 ? "+" : "-";
+                String changingStr = flag + round(Math.abs(changing) / oldCmp.getShares() * 100, 2) +"";
                 System.out.println(Math.abs(changing)+","+ oldCmp.getShares() +","+newCmp.getShares()+","+Math.abs(changing) / oldCmp.getShares());
+                //only show the change larger than 5%
                 if(Math.abs(changing) / oldCmp.getShares() >= threshold){
                     tradingCompanies.put(oldCmp, changingStr + "%");
                 }
