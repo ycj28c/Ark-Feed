@@ -7,6 +7,10 @@ import utils.SlackUtils;
 
 import java.util.List;
 
+/**
+ * @author ryang
+ * This runner is for local only, because the github action intergration only work for test
+ */
 public class ArkRunner {
 
     private static final String ARKW_OLD_JSON = "arkw_old_result.json";
