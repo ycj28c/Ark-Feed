@@ -20,13 +20,16 @@ public class ArkRunner {
         //read remote csv file
         if(isArkW) {
             List<CompanyData> newList = ArkFileUtils.loadRemoteCsv(ARKW_CSV);
-            SlackUtils.sendMessage(Payload.builder().text("Start analyzing ARKW Fund...!").build());
+            //SlackUtils.sendMessage(Payload.builder().text("Start analyzing ARKW Fund...!").build());
             //analyze the result
             if(newList != null && !newList.isEmpty()){
                 //List<CompanyData> oldList = readFromFile(ARKW_OLD_JSON);
                 List<CompanyData> oldList = ArkFileUtils.readFromS3File(ARKW_OLD_JSON);
                 if(oldList != null && !oldList.isEmpty()){
-                    Analyzer.highLevelAnalyze(oldList, newList);
+                    Analyzer.highLevelAnalyze(oldList, newList, "ARKW");
+                } else {
+                    System.out.println("Fail to load ARKW file from s3.");
+                    SlackUtils.sendMessage(Payload.builder().text("Fail to load ARKW file from s3").build());
                 }
                 //save the new file into disk
                 ArkFileUtils.saveToFile(ARKW_OLD_JSON, newList);
@@ -39,13 +42,16 @@ public class ArkRunner {
 
         if(isArkG) {
             List<CompanyData> newList = ArkFileUtils.loadRemoteCsv(ARKG_CSV);
-            SlackUtils.sendMessage(Payload.builder().text("Start analyzing ARKG Fund...!").build());
+            //SlackUtils.sendMessage(Payload.builder().text("Start analyzing ARKG Fund...!").build());
             //analyze the result
             if (newList != null && !newList.isEmpty()) {
                 //List<CompanyData> oldList = readFromFile(ARKG_OLD_JSON);
                 List<CompanyData> oldList = ArkFileUtils.readFromS3File(ARKG_OLD_JSON);
                 if(oldList != null && !oldList.isEmpty()) {
-                    Analyzer.highLevelAnalyze(oldList, newList);
+                    Analyzer.highLevelAnalyze(oldList, newList, "ARKG");
+                } else {
+                    System.out.println("Fail to load ARKG file from s3.");
+                    SlackUtils.sendMessage(Payload.builder().text("Fail to load ARKG file from s3").build());
                 }
                 //save the new file into disk
                 ArkFileUtils.saveToFile(ARKG_OLD_JSON, newList);

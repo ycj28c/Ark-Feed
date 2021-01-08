@@ -34,7 +34,7 @@ public class Analyzer {
      * 2.check the company delete from portfolio
      * 3.check the same company shares (+-) 5.0+%
      */
-    public static void highLevelAnalyze(List<CompanyData> oldList, List<CompanyData> newList) {
+    public static void highLevelAnalyze(List<CompanyData> oldList, List<CompanyData> newList, String title) {
         Map<String, CompanyData> newMap = newList.stream().collect(Collectors.toMap(CompanyData::getCusip, x -> x));
 
         StringBuilder sb = new StringBuilder();
@@ -83,8 +83,11 @@ public class Analyzer {
         }
 
         //send slack
-        Payload payload = Payload.builder().text(sb.toString()).build();
-        SlackUtils.sendMessage(payload);
+        if(sb.length() > 0){
+            SlackUtils.sendMessage(Payload.builder().text("*" + title + " Result:*").build());
+            SlackUtils.sendMessage(Payload.builder().text(sb.toString()).build());
+        }
+
     }
 
     public static double round(double value, int places) {
