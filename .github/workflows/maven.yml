@@ -11,7 +11,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '05,35 * * * 1-5'
+    - cron: '05,35 * * * 1-6'
 jobs:
   build:
 
