@@ -65,14 +65,14 @@ public class Analyzer {
         for(CompanyData oldCmp : oldList){
             if(newMap.containsKey(oldCmp.getCusip())){
                 CompanyData newCmp = newMap.get(oldCmp.getCusip());
-                double changing = oldCmp.getShares() - newCmp.getShares();
+                double changing = newCmp.getShares() - oldCmp.getShares();
                 //String changingStr = String.format("%.2f", Math.abs(changing) / oldCmp.getShares());
                 String flag = changing >=0 ? "+" : "-";
                 String changingStr = flag + round(Math.abs(changing) / oldCmp.getShares() * 100, 2) +"";
                 System.out.println(Math.abs(changing)+","+ oldCmp.getShares() +","+newCmp.getShares()+","+Math.abs(changing) / oldCmp.getShares());
                 //only show the change larger than 5%
                 if(Math.abs(changing) / oldCmp.getShares() >= threshold){
-                    tradingCompanies.put(oldCmp, changingStr + "%");
+                    tradingCompanies.put(oldCmp, changingStr + "%, from " + oldCmp.getShares() + " to " + newCmp.getShares());
                 }
             }
         }
