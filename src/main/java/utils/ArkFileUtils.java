@@ -94,7 +94,7 @@ public class ArkFileUtils {
         List<CompanyData> newList = new ArrayList<>();
         try {
             //add this, will able to works, otherwise will display 403 ERROR
-            System.setProperty("http.agent", "Chrome");
+            System.setProperty("http.agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36");
 
             URL url12 = new URL(baseurl);
             URLConnection urlConn = url12.openConnection();
